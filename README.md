@@ -6,40 +6,6 @@ A modern, production-grade **Retrieval-Augmented Generation (RAG)** web applicat
 
 ## 1. System Architecture & RAG Pipeline
 
-```mermaid
-flowchart TD
-    subgraph Client ["Frontend (React + Vite + Tailwind)"]
-        UI[ChatGPT-Style Interface]
-        UploadUI[Multi-PDF Drag & Drop]
-        Viewer[Built-In PDF Viewer]
-        Citations[Clickable Citations]
-    end
-
-    subgraph Server ["Backend (FastAPI)"]
-        API[FastAPI REST API]
-        Extractor[PDF Processor (PyMuPDF / pypdf)]
-        Splitter[Recursive Character Text Splitter]
-        Embedder[Sentence Transformers (all-MiniLM-L6-v2)]
-        FAISS[(FAISS Vector Store)]
-        LLMService[Anthropic Claude API SDK]
-    end
-
-    UploadUI -->|Upload PDF| API
-    API --> Extractor
-    Extractor -->|Page-by-page clean text| Splitter
-    Splitter -->|1000 char chunks + 200 overlap| Embedder
-    Embedder -->|384-d normalized embeddings| FAISS
-
-    UI -->|User Question| API
-    API --> Embedder
-    Embedder -->|Query Embedding| FAISS
-    FAISS -->|Top 5 Relevant Chunks + Page Metadata| LLMService
-    LLMService -->|Strict Grounded System Prompt| Claude[Claude 3.5 Sonnet]
-    Claude -->|Answer + Page Citations| API
-    API --> UI
-    Citations -->|Click Citation| Viewer
-```
-
 ### How the Pipeline Works:
 
 1. **PDF Upload & Validation**:
