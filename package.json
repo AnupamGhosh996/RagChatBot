@@ -1,0 +1,14 @@
+{
+  "name": "pdf-intelligence-rag",
+  "version": "1.0.0",
+  "description": "Full-stack PDF Intelligence RAG application with React, FastAPI, FAISS, Sentence Transformers, and Anthropic Claude",
+  "scripts": {
+    "frontend:dev": "cd frontend && npm run dev",
+    "frontend:build": "cd frontend && npm run build",
+    "backend:dev": "uvicorn backend.main:app --reload --port 8000",
+    "test:rag": "python tests/test_rag_pipeline.py"
+  },
+  "keywords": ["rag", "fastapi", "react", "faiss", "claude", "langchain", "sentence-transformers"],
+  "author": "",
+  "license": "MIT"
+}
